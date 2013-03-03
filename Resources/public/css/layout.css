@@ -4,6 +4,13 @@
     }
 }
 
+.required:after
+{
+    content: '\2217';
+    color: #BB0000;
+    font-weight: bold;
+}
+
 .sonata-bc .navbar a.brand {
     margin: 0px;
     padding: 0px;
