@@ -89,8 +89,8 @@ file that was distributed with this source code.
                         {% endblock %}
 
                         <div class="nav-collapse">
+                            {% block top_bar_before_nav %} {% endblock %}
                             <ul class="nav">
-                                {% block top_bar_before_nav %} {% endblock %}
                                 {% block sonata_top_bar_nav %}
                                     {% if app.security.token and is_granted('ROLE_SONATA_ADMIN') %}
                                         {% for group in admin_pool.dashboardgroups %}
@@ -107,8 +107,8 @@ file that was distributed with this source code.
                                         {% endfor %}
                                     {% endif %}
                                 {% endblock %}
-                                {% block top_bar_after_nav %} {% endblock %}
                             </ul>
+                            {% block top_bar_after_nav %} {% endblock %}
                         </div>
                     {% endif %}
                 </div>
