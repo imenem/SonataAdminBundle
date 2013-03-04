@@ -29,6 +29,7 @@ var Admin = {
      * @param subject
      */
     add_pretty_errors: function(subject) {
+        return;
         jQuery('div.sonata-ba-field-error', subject).each(function(index, element) {
             var input = jQuery('input, textarea, select', element);
 
