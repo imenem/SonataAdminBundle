@@ -110,6 +110,10 @@ class SonataAdminExtension extends Extension
             'text'     => 'span5',
             'choice'   => 'span5',
             'integer'  => 'span5',
+
+            'shtumi_ajax_autocomplete'          => 'span5',
+            'shtumi_dependent_filtered_entity'  => 'span5',
+
             'datetime' => 'sonata-medium-date',
             'date'     => 'sonata-medium-date'
         );
