@@ -1,7 +1,7 @@
 jQuery(document).ready(function() {
     jQuery('html').removeClass('no-js');
     Admin.add_pretty_errors(document);
-    Admin.add_collapsed_toggle();
+    Admin.add_collapsed_toggle(document);
     Admin.add_filters(document);
     Admin.set_object_field_value(document);
     Admin.setup_collection_buttons(document);
@@ -84,7 +84,7 @@ var Admin = {
     add_collapsed_toggle: function(subject) {
         jQuery('fieldset.sonata-ba-fieldset-collapsed').has('.error').addClass('sonata-ba-collapsed-fields-close');
         jQuery('fieldset.sonata-ba-fieldset-collapsed div.sonata-ba-collapsed-fields').not(':has(.error)').hide();
-        jQuery('fieldset legend a.sonata-ba-collapsed', subject).live('click', function(event) {
+        jQuery(subject).on('click', 'fieldset legend a.sonata-ba-collapsed', function(event) {
             event.preventDefault();
 
             var fieldset = jQuery(this).closest('fieldset');
@@ -114,9 +114,9 @@ var Admin = {
     },
 
     add_filters: function(subject) {
-        jQuery('div.filter_container.inactive', subject).hide();
+        jQuery('div.filter_container .sonata-filter-option', subject).hide();
         jQuery('fieldset.filter_legend', subject).click(function(event) {
-           jQuery('div.filter_container', jQuery(event.target).parent()).toggle();
+           jQuery('div.filter_container .sonata-filter-option', jQuery(event.target).parent()).toggle();
         });
     },
 
