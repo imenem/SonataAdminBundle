@@ -1087,6 +1087,15 @@ abstract class Admin implements AdminInterface, DomainObjectInterface
     {
         $this->buildRoutes();
 
+        if (
+            ! $this->isChild()
+            && strpos($name, '.') !== false
+            && strpos($name, $this->getBaseCodeRoute() . '|') !== 0
+            && strpos($name, $this->getBaseCodeRoute() . '.') !== 0
+        ) {
+            $name = $this->getCode() . '|' . $name;
+        }
+
         return $this->routes->has($name);
     }
 
@@ -1211,7 +1220,7 @@ abstract class Admin implements AdminInterface, DomainObjectInterface
         $admin = $this;
 
         // add the custom inline validation option
-        $metadata = $this->validator->getMetadataFactory()->getClassMetadata($this->getClass());
+        $metadata = $this->validator->getMetadataFactory()->getMetadataFor($this->getClass());
 
         $metadata->addConstraint(new InlineConstraint(array(
             'service' => $this,
@@ -1986,7 +1995,8 @@ abstract class Admin implements AdminInterface, DomainObjectInterface
 
         } elseif ($action != 'list') {
             $breadcrumbs = $child->getBreadcrumbsArray(
-                $this->trans($this->getLabelTranslatorStrategy()->getLabel(sprintf('%s_%s', $this->getClassnameLabel(), $action), 'breadcrumb', 'link'))
+//                $this->trans($this->getLabelTranslatorStrategy()->getLabel(sprintf('%s_%s', $this->getClassnameLabel(), $action), 'breadcrumb', 'link'))
+                  $this->toString($this->getSubject())
             );
         } else {
             $breadcrumbs = $child->getBreadcrumbsArray();
