@@ -110,11 +110,8 @@ class ErrorElement
      */
     protected function validate(Constraint $constraint)
     {
-        $validator = $this->constraintValidatorFactory->getInstance($constraint);
-        $value     = $this->getValue();
-
-        $validator->initialize($this->context);
-        $validator->validate($value, $constraint);
+        $subPath = (string) $this->getCurrentPropertyPath();
+        $this->context->validateValue($this->getValue(), $constraint, $subPath, $this->group);
     }
 
     /**
@@ -191,7 +188,8 @@ class ErrorElement
             $message    = isset($message[0]) ? $message[0] : 'error';
         }
 
-        $this->context->addViolationAtPath($this->getFullPropertyPath(), $message, $parameters, $value);
+        $subPath = (string) $this->getCurrentPropertyPath();
+        $this->context->addViolationAt($subPath, $message, $parameters, $value);
 
         $this->errors[] = array($message, $parameters, $value);
 
